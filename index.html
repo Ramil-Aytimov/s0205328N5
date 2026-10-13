@@ -1,1 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
 
+<head>
+    <!-- Кодировка страницы: нужна для корректного отображения русского текста. -->
+    <meta charset="UTF-8">
+
+    <!-- Масштабирование и ширина страницы под экран устройства. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Название страницы во вкладке браузера. -->
+    <title>Задание 5 — Калькулятор заказа</title>
+
+    <!-- Подключение внешнего файла стилей CSS. -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Подключение JavaScript. Атрибут defer запускает скрипт после разбора HTML. -->
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <!-- Шапка страницы. -->
+    <header class="site-header">
+        <!-- Контейнер нужен для управления шириной и отступами содержимого через CSS. -->
+        <div class="container">
+            <!-- Главный заголовок страницы. -->
+            <h1>Калькулятор стоимости заказа</h1>
+        </div>
+    </header>
+
+    <!-- Основное содержимое страницы. -->
+    <main class="container">
+        <!-- Секция калькулятора. aria-labelledby связывает секцию с её заголовком. -->
+        <section class="calculator" aria-labelledby="calculator-title">
+            <!-- Заголовок секции с уникальным идентификатором. -->
+            <h2 id="calculator-title">Рассчитать стоимость</h2>
+
+            <!-- Форма ввода. novalidate отключает стандартную проверку браузера,
+                 чтобы сообщения об ошибках можно было показывать через JavaScript. -->
+            <form id="order-form" novalidate>
+                <!-- Группа: подпись и список выбора товара. -->
+                <div class="form-group">
+                    <!-- Подпись связана с полем по совпадающим for и id. -->
+                    <label for="product">Выберите товар:</label>
+
+                    <!-- Список товаров. JavaScript сможет прочитать выбранный option. -->
+                    <select id="product" name="product">
+                        <!-- data-price содержит цену, которую использует калькулятор. -->
+                        <option value="notebook" data-price="1200">Тетрадь — 1200 ₽</option>
+                        <option value="pen" data-price="80">Ручка — 80 ₽</option>
+                        <option value="backpack" data-price="2500">Рюкзак — 2500 ₽</option>
+                    </select>
+                </div>
+
+                <!-- Группа: подпись и поле ввода количества товара. -->
+                <div class="form-group">
+                    <!-- Подпись связана с полем количества через for и id. -->
+                    <label for="quantity">Количество товара:</label>
+
+                    <!-- Текстовое поле количества. inputmode="numeric" подсказывает
+                         мобильному устройству показать цифровую клавиатуру.
+                         autocomplete="off" отключает автозаполнение браузера. -->
+                    <input type="text" id="quantity" name="quantity" inputmode="numeric" autocomplete="off"
+                        placeholder="Например, 3" aria-describedby="quantity-help error-message">
+
+                    <!-- Короткая подсказка о правильном формате ввода. -->
+                    <small id="quantity-help">Введите целое положительное число.</small>
+                </div>
+
+                <!-- При нажатии кнопки форма отправляется; обработчик будет в script.js. -->
+                <button type="submit">Рассчитать стоимость</button>
+            </form>
+
+            <!-- JavaScript выводит сюда ошибку, если количество введено неверно.
+                 role="alert" и aria-live помогают программам экранного доступа
+                 сообщать об изменении текста. -->
+            <p id="error-message" class="error" role="alert" aria-live="polite"></p>
+
+            <!-- JavaScript выводит сюда итоговую стоимость заказа. -->
+            <p id="result" class="result" aria-live="polite"></p>
+        </section>
+    </main>
+
+    <!-- Подвал страницы. -->
+    <footer class="site-footer">
+        <!-- Подпись в нижней части страницы. -->
+        <div class="container">(c) Рамиль Айтимов</div>
+    </footer>
+</body>
+
+</html>
